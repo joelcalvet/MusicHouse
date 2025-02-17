@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="song"
+            type="com.example.musichouse.data.model.Song" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/t_tol"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:background="@drawable/edittext_background"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/etArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/artista"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:background="@drawable/edittext_background"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/etAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/lbum"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:background="@drawable/edittext_background"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/etDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/duration"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:background="@drawable/edittext_background"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/afegir_cans"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

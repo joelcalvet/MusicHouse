@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MusicHouse</string>
+    <string name="afegir_can">Afegir Cançó</string>
+    <string name="t_tol">Títol</string>
+    <string name="artista">Artista</string>
+    <string name="lbum">Àlbum</string>
+    <string name="duration">Duració</string>
+    <string name="afegir_cans">Afegir Cançó</string>
+    <string name="t_tol_de_la_can">Títol de la Cançó</string>
+    <string name="nom_de_l_artista">Nom de l\'Artista</string>
+    <string name="_00_00">00:00</string>
+    <string name="lbum2">Àlbum</string>
+    <string name="artista2">Artista</string>
+    <string name="t_tol2">Títol</string>
+    <string name="t_tol_de_la_can2">Títol de la Cançó</string>
+    <string name="_00_002">00:00</string>
+    <string name="duracio">Duracio</string>
+</resources>

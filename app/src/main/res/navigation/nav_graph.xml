@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.musichouse.ui.fragments.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_addSongFragment"
+            app:destination="@id/addSongFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addSongFragment"
+        android:name="com.example.musichouse.ui.fragments.AddSongFragment"
+        tools:layout="@layout/fragment_add_song">
+        <action
+            android:id="@+id/action_addSongFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/songDetailFragment"
+        android:name="com.example.musichouse.ui.fragments.SongDetailFragment"
+        tools:layout="@layout/fragment_song_detail">
+        <argument
+            android:name="songTitle"
+            app:argType="string" />
+        <argument
+            android:name="songArtist"
+            app:argType="string" />
+        <argument
+            android:name="songAlbum"
+            app:argType="string" />
+        <argument
+            android:name="songDuration"
+            app:argType="float" />
+        <action
+            android:id="@+id/action_songDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_songDetailFragment_to_addSongFragment"
+            app:destination="@id/addSongFragment" />
+    </fragment>
+</navigation>

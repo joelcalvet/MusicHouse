@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colors existents -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="gray_light">#D3D3D3</color>
+    <color name="gray_dark">#A9A9A9</color>
+
+    <!-- Colors per al tema fosch modern -->
+    <color name="primaryColor">#BB86FC</color>
+    <color name="primaryVariantColor">#3700B3</color>
+    <color name="onPrimaryColor">#000000</color>
+    <color name="secondaryColor">#03DAC6</color>
+    <color name="secondaryVariantColor">#018786</color>
+    <color name="onSecondaryColor">#000000</color>
+    <color name="backgroundColor">#121212</color>
+    <color name="surfaceColor">#1E1E1E</color>
+    <color name="colorSurfaceVariant">#2C2C2C</color>
+    <color name="onSurfaceColor">#FFFFFF</color>
+    <color name="colorOnSurfaceVariant">#B0B0B0</color>
+    <color name="cardStroke">#333333</color>
+    <color name="onBackground">#FFFFFF</color>
+</resources>
