@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musichouse.R
+import com.example.musichouse.data.database.SongDatabase
 import com.example.musichouse.data.model.Song
+import com.example.musichouse.data.repository.SongRepository
 import com.example.musichouse.databinding.FragmentAddSongBinding
 import com.example.musichouse.ui.viewmodel.SongViewModel
 
@@ -20,7 +22,9 @@ class AddSongFragment : Fragment() {
     private val binding get() = _binding!!
     private val songViewModel: SongViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAddSongBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -29,46 +33,51 @@ class AddSongFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val title = arguments?.getString("songTitle")
-        val artist = arguments?.getString("songArtist")
-        val album = arguments?.getString("songAlbum")
-        val duration = arguments?.getFloat("songDuration") ?: 0f
+        // Inicialitza el ViewModel amb el repository
+        val songDao = SongDatabase.getDatabase(requireContext()).songDao()
+        songViewModel.init(SongRepository(songDao))
 
-        if (title != null && artist != null && album != null) {
-            binding.etTitle.setText(title)
-            binding.etArtist.setText(artist)
-            binding.etAlbum.setText(album)
-            binding.etDuration.setText(duration.toString())
+        // Recupera les dades si s'està actualitzant una cançó (update mode)
+        val songId = arguments?.getInt("songId") ?: 0
+        val songTitle = arguments?.getString("songTitle") ?: ""
+        val songArtist = arguments?.getString("songArtist") ?: ""
+        val songAlbum = arguments?.getString("songAlbum") ?: ""
+        val songDuration = arguments?.getFloat("songDuration") ?: 0f
+
+        // Si tenim dades, omple els camps per actualitzar
+        if (songTitle.isNotEmpty() && songArtist.isNotEmpty() && songAlbum.isNotEmpty()) {
+            binding.etTitle.setText(songTitle)
+            binding.etArtist.setText(songArtist)
+            binding.etAlbum.setText(songAlbum)
+            binding.etDuration.setText(songDuration.toString())
         }
 
         binding.btnSave.setOnClickListener {
-            val newTitle = binding.etTitle.text.toString()
-            val newArtist = binding.etArtist.text.toString()
-            val newAlbum = binding.etAlbum.text.toString()
-            val newDuration = binding.etDuration.text.toString().toFloatOrNull() ?: 0f
+            val newTitle = binding.etTitle.text.toString().trim()
+            val newArtist = binding.etArtist.text.toString().trim()
+            val newAlbum = binding.etAlbum.text.toString().trim()
+            val newDurationText = binding.etDuration.text.toString().trim()
+            val newDuration = newDurationText.toFloatOrNull() ?: 0f
 
-            if (newTitle.isNotEmpty() && newArtist.isNotEmpty()) {
+            if (newTitle.isNotEmpty() && newArtist.isNotEmpty() && newAlbum.isNotEmpty()) {
                 val newSong = Song(
+                    id = songId, // Si songId és 0, és una nova cançó; si no, és actualització.
                     title = newTitle,
                     artist = newArtist,
                     album = newAlbum,
                     duration = newDuration
                 )
-                if (title != null && artist != null && album != null) {
+
+                if (songId != 0) {
                     songViewModel.updateSong(newSong)
-                    Toast.makeText(requireContext(), "Cançó actualitzada!", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Cançó actualitzada!", Toast.LENGTH_SHORT).show()
                 } else {
                     songViewModel.addSong(newSong)
                     Toast.makeText(requireContext(), "Cançó afegida!", Toast.LENGTH_SHORT).show()
                 }
                 findNavController().navigate(R.id.action_addSongFragment_to_homeFragment)
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Tots els camps són obligatoris!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Tots els camps són obligatoris!", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,24 +1,35 @@
 package com.example.musichouse.ui.viewmodel
-import android.app.Application
+
 import androidx.lifecycle.*
-import com.example.musichouse.data.database.SongDatabase
 import com.example.musichouse.data.model.Song
+import com.example.musichouse.data.repository.SongRepository
 import kotlinx.coroutines.launch
 
-class SongViewModel(application: Application) : AndroidViewModel(application) {
+class SongViewModel : ViewModel() {
 
-    private val songDao = SongDatabase.getDatabase(application).songDao()
-    val allSongs: LiveData<List<Song>> = songDao.getAllSongs()
+    private lateinit var repository: SongRepository
+
+    val allSongs: LiveData<List<Song>> get() = repository.getAllSongs()
+
+    fun init(repository: SongRepository) {
+        this.repository = repository
+    }
 
     fun addSong(song: Song) {
-        viewModelScope.launch { songDao.insert(song) }
+        viewModelScope.launch {
+            repository.insert(song)
+        }
     }
 
     fun updateSong(song: Song) {
-        viewModelScope.launch { songDao.update(song) }
+        viewModelScope.launch {
+            repository.update(song)
+        }
     }
 
     fun deleteSong(song: Song) {
-        viewModelScope.launch { songDao.delete(song) }
+        viewModelScope.launch {
+            repository.delete(song)
+        }
     }
 }

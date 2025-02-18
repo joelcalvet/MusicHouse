@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musichouse.R
+import com.example.musichouse.data.database.SongDatabase
+import com.example.musichouse.data.repository.SongRepository
 import com.example.musichouse.databinding.FragmentHomeBinding
 import com.example.musichouse.ui.adapter.SongAdapter
 import com.example.musichouse.ui.viewmodel.SongViewModel
@@ -30,8 +32,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        songAdapter = SongAdapter(emptyList()) { song -> // Callback per a l'element seleccionat
+        // Initialize the ViewModel with the repository
+        val songDao = SongDatabase.getDatabase(requireContext()).songDao()
+        songViewModel.init(SongRepository(songDao))
+
+        // Initialize the adapter
+        songAdapter = SongAdapter(mutableListOf()) { song ->
             val bundle = Bundle().apply {
+                putInt("songId", song.id)
                 putString("songTitle", song.title)
                 putString("songArtist", song.artist)
                 putString("songAlbum", song.album)
@@ -46,7 +54,7 @@ class HomeFragment : Fragment() {
         }
 
         songViewModel.allSongs.observe(viewLifecycleOwner) { songs ->
-            songAdapter.updateData(songs) // Actualitzar la llista de cançons
+            songAdapter.updateData(songs)
         }
 
         binding.addButton.setOnClickListener {
